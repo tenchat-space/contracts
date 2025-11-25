@@ -27,7 +27,8 @@ contract TenchatPrediction is Ownable, ReentrancyGuard {
     mapping(uint256 => Market) public markets;
 
     event MarketCreated(uint256 indexed id, string question, string[] options, uint256 endTime);
-    event BetPlaced(uint256 indexed id, address indexed user, uint256 optionIndex, uint256 amount);
+    // Ten Protocol: Removed user address from event to preserve privacy
+    event BetPlaced(uint256 indexed id, uint256 optionIndex, uint256 amount);
     event MarketResolved(uint256 indexed id, uint256 winningOptionIndex);
     event WinningsClaimed(uint256 indexed id, address indexed user, uint256 amount);
 
@@ -62,7 +63,7 @@ contract TenchatPrediction is Ownable, ReentrancyGuard {
         market.totalBetsByOption[_optionIndex] += _amount;
         market.totalBets += _amount;
 
-        emit BetPlaced(_marketId, msg.sender, _optionIndex, _amount);
+        emit BetPlaced(_marketId, _optionIndex, _amount);
     }
 
     function resolveMarket(uint256 _marketId, uint256 _winningOptionIndex) external onlyOwner {

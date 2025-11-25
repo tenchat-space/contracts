@@ -9,6 +9,15 @@ contract TenchatToken is ERC20, Ownable {
         _mint(msg.sender, 100000000 * 10 ** decimals());
     }
 
+    /**
+     * @dev Overrides balanceOf to provide privacy on Ten Protocol.
+     * Only the account holder can view their own balance.
+     */
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        require(msg.sender == account, "TenchatToken: Balance is private");
+        return super.balanceOf(account);
+    }
+
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
     }
