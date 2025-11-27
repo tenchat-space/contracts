@@ -1,5 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@tenprotocol/ten-hardhat-plugin";
 import * as dotenv from "dotenv";
 
 dotenv.config();
