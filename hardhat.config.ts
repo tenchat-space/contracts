@@ -9,7 +9,7 @@ const config: HardhatUserConfig = {
   networks: {
     ten: {
       url: process.env.TEN_TESTNET_RPC_URL || "https://testnet.ten.xyz/v1/",
-      chainId: 443,
+      chainId: 8443,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
   },
