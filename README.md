@@ -67,4 +67,4 @@ These addresses are from a local deployment. Update this section after deploying
 | **TenchatPrediction** | `0xa71e7C9516b835b4A543568E4f5FC78d628FaC48` |
 | **TenchatSubscription** | `0x33aE8331a2406EEc3A33483001aC5650DA2e0662` |
 
-> **Note:** The Ten Testnet RPC URL is configured as `https://testnet.ten.xyz/v1/` with chain ID `8443`. If deployment fails, check the Ten Protocol documentation for the latest RPC details.
+> **Note:** The Ten Testnet RPC URL is configured from env variable with chain ID `8443`. If deployment fails, check the Ten Protocol documentation for the latest RPC details.
