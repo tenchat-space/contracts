@@ -102,4 +102,12 @@ contract TenchatPrediction is Ownable, ReentrancyGuard {
     function getMarketOptions(uint256 _marketId) external view returns (string[] memory) {
         return markets[_marketId].options;
     }
+
+    /**
+     * @dev Ten Protocol: Authenticated view function to retrieve private bet data.
+     * Only the bettor can see their own bet amount.
+     */
+    function getMyBet(uint256 _marketId, uint256 _optionIndex) external view returns (uint256) {
+        return markets[_marketId].userBets[_optionIndex][msg.sender];
+    }
 }

@@ -84,23 +84,23 @@ describe("Tenchat Ecosystem", function () {
       const { prediction, token, user1, user2, owner } = await loadFixture(deployFixture);
 
       // Create market
-      await prediction.createMarket("Will ETH hit 10k?", 3600);
+      await prediction.createMarket("Will ETH hit 10k?", ["No", "Yes"], 3600);
       
       // Place bets
       const betAmount = ethers.parseEther("100");
       await token.connect(user1).approve(await prediction.getAddress(), betAmount);
-      await prediction.connect(user1).placeBet(1, 1, betAmount); // Yes
+      await prediction.connect(user1).placeBet(1, 1, betAmount); // Yes (Index 1)
 
       await token.connect(user2).approve(await prediction.getAddress(), betAmount);
-      await prediction.connect(user2).placeBet(1, 2, betAmount); // No
+      await prediction.connect(user2).placeBet(1, 0, betAmount); // No (Index 0)
 
       // Resolve market (Yes wins)
       await prediction.resolveMarket(1, 1);
 
       // Claim winnings
-      const balanceBefore = await token.balanceOf(user1.address);
+      const balanceBefore = await token.connect(user1).balanceOf(user1.address);
       await prediction.connect(user1).claimWinnings(1);
-      const balanceAfter = await token.balanceOf(user1.address);
+      const balanceAfter = await token.connect(user1).balanceOf(user1.address);
 
       // User1 should get their 100 + User2's 100 = 200
       expect(balanceAfter - balanceBefore).to.equal(ethers.parseEther("200"));
